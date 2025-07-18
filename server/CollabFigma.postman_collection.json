@@ -1,0 +1,96 @@
+{
+  "info": {
+    "name": "CollabFigma API",
+    "_postman_id": "abcd1234-5678-90ef-ghij-klmnopqrstuv",
+    "description": "Postman collection for CollabFigma backend APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Signup",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"Test1234\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/auth/signup",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "auth", "signup"]
+        }
+      }
+    },
+    {
+      "name": "Verify OTP",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"otp\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/auth/verify-otp",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "auth", "verify-otp"]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"Test1234\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/auth/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "Confirm Login OTP",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"otp\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/auth/confirm-login-otp",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "auth", "confirm-login-otp"]
+        }
+      }
+    },
+    {
+      "name": "Get User",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }],
+        "url": {
+          "raw": "http://localhost:4000/api/user/get-user",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "user", "get-user"]
+        }
+      }
+    }
+  ]
+}
