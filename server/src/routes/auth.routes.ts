@@ -7,5 +7,6 @@ router.post("/signup", authController.signup);
 router.post("/verify-otp", authController.verifyOtp);
 router.post("/login", authController.login);
 router.post("/confirm-login-otp", authController.confirmLoginOtp);
+router.post("/logout", authController.logout);
 
 export default router;

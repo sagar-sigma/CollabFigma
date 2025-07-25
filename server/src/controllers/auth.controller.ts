@@ -43,11 +43,35 @@ export const login = async (req: Request, res: Response) => {
 
 export const confirmLoginOtp = async (req: Request, res: Response) => {
   try {
-    const data = await authService.confirmLoginOtp(
+    const { message, data } = await authService.confirmLoginOtp(
       req.body.email,
       req.body.otp
     );
-    return sendSuccess(res, data.message, { token: data.token });
+    // Set cookie
+    res.cookie("token", data.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+    return sendSuccess(res, message, data);
+  } catch (err) {
+    const error =
+      err instanceof AppError
+        ? err
+        : new AppError("Internal server error", 500);
+    return sendError(res, error.message, error.statusCode);
+  }
+};
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
+    return sendSuccess(res, "Logged out successfully");
   } catch (err) {
     const error =
       err instanceof AppError

@@ -68,10 +68,18 @@ export const confirmLoginOtp = async (email: string, otp: string) => {
     expiresIn: expiresIn,
   });
 
-  await prisma.user.update({
+  const updatedUser = await prisma.user.update({
     where: { email },
     data: { otp: null, otpExpiresAt: null },
   });
 
-  return { message: "Login successful", token };
+  const data = {
+    token,
+    id: updatedUser.id,
+    name: updatedUser.name,
+    email: updatedUser.email,
+    verified: updatedUser.verified,
+  };
+
+  return { message: "Login successful", data };
 };

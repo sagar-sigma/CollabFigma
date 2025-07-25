@@ -9,17 +9,19 @@ export const authenticate = (
   next: NextFunction
 ) => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    // ✅ Get token from cookie
+    const token = req.cookies?.token;
+
+    if (!token) {
       throw new AppError("No token provided", 401);
     }
 
-    const token = authHeader.split(" ")[1];
+    // ✅ Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
       userId: string;
     };
 
-    // Attach userId to request object
+    // ✅ Attach user ID to request object
     (req as any).userId = decoded.userId;
 
     next();
